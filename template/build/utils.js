@@ -1,4 +1,5 @@
 var path = require('path')
+var glob = require('glob')
 var config = require('../config')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
@@ -58,4 +59,9 @@ exports.styleLoaders = function (options) {
     })
   }
   return output
+}
+exports.getEntries = function (globPath) {
+  var files = glob.sync(globPath);
+  console.log(files);
+  process.exit(0);
 }

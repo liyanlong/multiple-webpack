@@ -2,6 +2,8 @@
 var path = require('path')
 
 module.exports = {
+  entry: './pages/**/*.js',
+  template: './views/**/*.html',
   build: {
     env: require('./prod.env'),
     index: path.resolve(__dirname, '../dist/index.html'),

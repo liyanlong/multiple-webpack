@@ -9,9 +9,9 @@ var env = process.env.NODE_ENV
 var cssSourceMapDev = (env === 'development' && config.dev.cssSourceMap)
 var cssSourceMapProd = (env === 'production' && config.build.productionSourceMap)
 var useCssSourceMap = cssSourceMapDev || cssSourceMapProd
-
+var entries  = utils.getEntry('./src/pages/**/*.js', './src/pages/')
 module.exports = {
-  entry: utils.getEntries(config.entry),
+  entry: entries,
   output: {
     path: config.build.assetsRoot,
     publicPath: process.env.NODE_ENV === 'production' ? config.build.assetsPublicPath : config.dev.assetsPublicPath,
@@ -26,8 +26,7 @@ module.exports = {
       {{/if_eq}}
       'src': path.resolve(__dirname, '../src'),
       'assets': path.resolve(__dirname, '../src/assets'),
-      'components': path.resolve(__dirname, '../src/components'),
-      'widgets': path.resolve(__dirname, '../src/widgets'),
+      'components': path.resolve(__dirname, '../src/components')
     }
   },
   resolveLoader: {
@@ -35,24 +34,24 @@ module.exports = {
   },
   module: {
     {{#lint}}
-    preLoaders: [
-      {
-        test: /\.vue$/,
-        loader: 'eslint',
-        include: [
-          path.join(projectRoot, 'src')
-        ],
-        exclude: /node_modules/
-      },
-      {
-        test: /\.js$/,
-        loader: 'eslint',
-        include: [
-          path.join(projectRoot, 'src')
-        ],
-        exclude: /node_modules/
-      }
-    ],
+      preLoaders: [
+        {
+          test: /\.vue$/,
+          loader: 'eslint',
+          include: [
+            path.join(projectRoot, 'src')
+          ],
+          exclude: /node_modules/
+        },
+        {
+          test: /\.js$/,
+          loader: 'eslint',
+          include: [
+            path.join(projectRoot, 'src')
+          ],
+          exclude: /node_modules/
+        }
+      ],
     {{/lint}}
     loaders: [
       {
@@ -62,9 +61,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel',
-        include: [
-          path.join(projectRoot, 'src')
-        ],
+        include: projectRoot,
         exclude: /node_modules/
       },
       {
@@ -86,14 +83,18 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
+      },
+      {
+        test: /\.md/,
+        loader: 'vue-markdown-loader',
       }
     ]
   },
   {{#lint}}
-  eslint: {
-    formatter: require('eslint-friendly-formatter')
-  },
-  {{/lint}}
+   eslint: {
+     formatter: require('eslint-friendly-formatter')
+   },
+   {{/lint}}
   vue: {
     loaders: utils.cssLoaders({ sourceMap: useCssSourceMap }),
     postcss: [
@@ -101,5 +102,9 @@ module.exports = {
         browsers: ['last 2 versions']
       })
     ]
-  }
+  },
+  plugins: [].concat(
+    // https://github.com/ampedandwired/html-webpack-plugin
+    utils.htmlLoaders('./src/views/**/*.html', './src/views/', entries)
+  )
 }

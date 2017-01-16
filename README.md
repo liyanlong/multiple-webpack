@@ -16,9 +16,9 @@ This is a project template for [vue-cli](https://github.com/vuejs/vue-cli). **It
 
 ```bash
 $ npm install -g vue-cli
-$ vue init webpack my-project
+$ vue init liyanlong/webpack my-project
 or 
-$ vue init webpack#multiple my-project
+$ vue init liyanlong/webpack#multiple my-project
 $ cd my-project
 $ npm install
 $ npm run dev

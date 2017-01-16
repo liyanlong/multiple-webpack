@@ -1,8 +1,9 @@
 # vue-webpack-boilerplate
-
 > A full-featured Webpack setup with hot-reload, lint-on-save, unit testing & css extraction.
 
 > This template is Vue 2.0 compatible.
+
+> Add new vue-webpack-bilerplate at branch#multiple
 
 ## Documentation
 
@@ -16,6 +17,8 @@ This is a project template for [vue-cli](https://github.com/vuejs/vue-cli). **It
 ```bash
 $ npm install -g vue-cli
 $ vue init webpack my-project
+or 
+$ vue init webpack#multiple my-project
 $ cd my-project
 $ npm install
 $ npm run dev
